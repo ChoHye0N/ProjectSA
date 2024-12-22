@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.github.chohye0n.sa.projectsa"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.github.chohye0n.sa.projectsa"
@@ -49,6 +49,14 @@ dependencies {
 
     // NOTE: observeAsState 사용하기 위해 추가
     implementation(libs.androidx.runtime.livedata)
+
+    // NOTE: Navigation 사용하기 위해 추가
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
+
+    // NOTE: AsyncImage 사용하기 위해 추가
+    implementation(libs.coil3.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,12 +1,12 @@
 package com.github.chohye0n.sa.projectsa.api
 
-import com.github.chohye0n.sa.projectsa.model.StudentDto
+import com.github.chohye0n.sa.projectsa.model.Student
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface StudentApi {
-    @GET("students")
+    @GET("characters")
     suspend fun getStudents(
         @Query("apikey") apiKey: String = StudentApiConfig.API_KEY
-    ): List<StudentDto> // DTO로 반환받음
+    ): List<Student>
 }
