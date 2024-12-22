@@ -75,7 +75,7 @@ fun MainScreen(viewModel: StudentViewModel = viewModel()) {
         NavHost(navController = navController, startDestination = "student_list", modifier = Modifier.padding(innerPadding)) {
             // 학생 목록 화면
             composable("student_list") {
-                StudentList(studentList, navController)
+                StudentList(studentList, navController, viewModel)
             }
 
             // 학생 세부 정보 화면
@@ -94,7 +94,7 @@ fun MainScreen(viewModel: StudentViewModel = viewModel()) {
 }
 
 @Composable
-fun StudentList(studentList: List<Student>, navController: NavController) {
+fun StudentList(studentList: List<Student>, navController: NavController, viewModel: StudentViewModel) {
     var searchQuery by remember { mutableStateOf("") }
 
     // 검색된 학생 리스트 필터링
@@ -108,6 +108,13 @@ fun StudentList(studentList: List<Student>, navController: NavController) {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
+        // 검색된 학생 수 출력
+        Text(
+            text = "현재 검색된 학생 수: ${filteredStudents.size}",
+            fontSize = 18.sp,
+            modifier = Modifier.padding(16.dp)
+        )
+
         // 검색 입력 필드
         TextField(
             value = searchQuery,
@@ -152,14 +159,18 @@ fun StudentItem(student: Student, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 사진 부분 (AsyncImage 사용)
-            AsyncImage(
-                model = "https://schaledb.com/images/student/collection/${student.id}.webp",
-                contentDescription = "Profile Image",
-                contentScale = ContentScale.Fit,
+            Box(
                 modifier = Modifier
                     .size(100.dp)
                     .clip(RoundedCornerShape(12.dp))
-            )
+            ) {
+                AsyncImage(
+                    model = "https://schaledb.com/images/student/collection/${student.id}.webp",
+                    contentDescription = "Profile Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
             // 텍스트 부분
             Column(modifier = Modifier.padding(start = 16.dp)) {
                 Text(
